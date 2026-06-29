@@ -1,770 +1,791 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sales Beauty | Maquiagem de Luxo</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&family=Cinzel:wght@400;700&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --preto: #0d0d0d;
-      --dourado: #c9a227;
-      --champagne: #f3e5ab;
-      --branco: #ffffff;
-      --cinza: #1a1a1a;
-    }
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    html {
-      scroll-behavior: smooth;
-    }
-    body {
-      font-family: 'Lato', sans-serif;
-      background-color: var(--preto);
-      color: var(--branco);
-      line-height: 1.6;
-    }
-    h1, h2, h3, h4 {
-      font-family: 'Playfair Display', serif;
-      font-weight: 700;
-    }
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-    img {
-      display: block;
-      max-width: 100%;
-    }
-    /* Header */
-    .header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 15px 30px;
-      background: rgba(13, 13, 13, 0.92);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(201, 162, 39, 0.2);
-    }
-    .logo {
-      display: flex;
-      align-items: center;
-      flex-shrink: 0;
-      z-index: 1001;
-    }
-    .logo img {
-      height: 60px;
-      width: auto;
-      max-width: 200px;
-      object-fit: contain;
-      transition: transform 0.3s ease;
-    }
-    .logo img:hover {
-      transform: scale(1.03);
-    }
-    .nav-desktop {
-      display: flex;
-      gap: 28px;
-    }
-    .nav-desktop a {
-      font-size: 0.95rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--champagne);
-      position: relative;
-      transition: color 0.3s ease;
-    }
-    .nav-desktop a::after {
-      content: '';
-      position: absolute;
-      bottom: -6px;
-      left: 0;
-      width: 0;
-      height: 1px;
-      background: var(--dourado);
-      transition: width 0.3s ease;
-    }
-    .nav-desktop a:hover {
-      color: var(--dourado);
-    }
-    .nav-desktop a:hover::after {
-      width: 100%;
-    }
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      gap: 6px;
-      width: 32px;
-      height: 32px;
-      cursor: pointer;
-      z-index: 1001;
-    }
-    .hamburger span {
-      display: block;
-      width: 100%;
-      height: 2px;
-      background: var(--dourado);
-      border-radius: 2px;
-      transition: all 0.3s ease;
-    }
-    .mobile-menu {
-      position: fixed;
-      top: 0;
-      right: -100%;
-      width: 75%;
-      max-width: 300px;
-      height: 100vh;
-      background: rgba(13, 13, 13, 0.98);
-      backdrop-filter: blur(12px);
-      border-left: 1px solid rgba(201, 162, 39, 0.3);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 30px;
-      transition: right 0.4s ease;
-      z-index: 1000;
-    }
-    .mobile-menu.active {
-      right: 0;
-    }
-    .mobile-menu a {
-      font-size: 1.1rem;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: var(--champagne);
-      transition: color 0.3s ease;
-    }
-    .mobile-menu a:hover {
-      color: var(--dourado);
-    }
-    .overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.6);
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.4s ease;
-      z-index: 999;
-    }
-    .overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-    /* Hero */
-    .hero {
-      width: 100%;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 130px 20px 60px;
-      position: relative;
-      background-color: var(--preto);
-    }
-    .hero-inner {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 60px;
-      max-width: 1000px;
-      width: 100%;
-      flex-wrap: wrap;
-    }
-    .hero-logo {
-      flex-shrink: 0;
-    }
-    .hero-logo img {
-      height: 500px;
-      width: auto;
-      object-fit: contain;
-    }
-    .hero-frase {
-      display: flex;
-      flex-direction: column;
-      text-align: center;
-    }
-    .hero-frase .linha1 {
-      font-family: 'Cinzel', serif;
-      font-size: 2.8rem;
-      font-weight: 700;
-      line-height: 1.2;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--champagne);
-      filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5));
-    }
-    .hero-frase .linha2 {
-      font-family: 'Cinzel', serif;
-      font-size: 2.2rem;
-      font-weight: 400;
-      line-height: 1.2;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--champagne);
-      filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5));
-    }
-    .hero-frase .linha3 {
-      font-family: 'Cinzel', serif;
-      font-size: 1.4rem;
-      font-weight: 400;
-      line-height: 1.2;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-top: 15px;
-      color: var(--champagne);
-      filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5));
-    }
-    .hero-content {
-      position: relative;
-      z-index: 1;
-      max-width: 800px;
-      margin-top: 50px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 15px;
-      flex-wrap: wrap;
-    }
-    .hero-content .btn-outline {
-      margin-left: 0;
-    }
-    .btn {
-      display: inline-block;
-      padding: 16px 38px;
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      border-radius: 50px;
-      transition: all 0.3s ease;
-      font-weight: 700;
-      cursor: pointer;
-    }
-    .btn-primary {
-      background: linear-gradient(135deg, #c9a227, #d4af37);
-      color: var(--preto);
-      border: none;
-      box-shadow: 0 4px 15px rgba(201, 162, 39, 0.25);
-    }
-    .btn-primary:hover {
-      background: linear-gradient(135deg, #d4af37, #e0c04a);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(201, 162, 39, 0.4);
-    }
-    .btn-outline {
-      background: rgba(201, 162, 39, 0.08);
-      border: 1.5px solid rgba(201, 162, 39, 0.6);
-      color: var(--dourado);
-      backdrop-filter: blur(4px);
-    }
-    .btn-outline:hover {
-      background: rgba(201, 162, 39, 0.18);
-      border-color: var(--dourado);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(201, 162, 39, 0.2);
-    }
-    /* Sections */
-    section {
-      padding: 90px 20px;
-    }
-    .section-title {
-      text-align: center;
-      font-size: 2.4rem;
-      color: var(--dourado);
-      margin-bottom: 50px;
-      position: relative;
-    }
-    .section-title::after {
-      content: '';
-      display: block;
-      width: 60px;
-      height: 2px;
-      background: var(--champagne);
-      margin: 15px auto 0;
-    }
-    /* Sobre */
-    .sobre {
-      background: var(--cinza);
-    }
-    .sobre-container {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 50px;
-      align-items: center;
-    }
-    .sobre-imagem {
-      width: 100%;
-      overflow: hidden;
-      border-radius: 12px;
-      border: 1px solid rgba(201, 162, 39, 0.3);
-    }
-    .sobre-imagem img {
-      width: 100%;
-      height: auto;
-      max-height: 900px;
-      object-fit: cover;
-      display: block;
-    }
-    .sobre-texto h2 {
-      font-size: 2rem;
-      color: var(--champagne);
-      margin-bottom: 20px;
-    }
-    .sobre-texto p {
-      color: #d4d4d4;
-      margin-bottom: 18px;
-    }
-    .sobre-texto strong {
-      color: var(--dourado);
-    }
-    /* Serviços / Cards */
-    .servicos-lista {
-      max-width: 900px;
-      margin: 0 auto 40px;
-      padding: 0 20px;
-    }
-    .servicos-texto {
-      font-family: 'Cinzel', serif;
-      font-size: 1.1rem;
-      color: #d4d4d4;
-      line-height: 2;
-      text-align: center;
-      letter-spacing: 0.5px;
-    }
-    .bolinha {
-      color: var(--dourado);
-      font-size: 1.3rem;
-      margin: 0 8px;
-      display: inline-block;
-      vertical-align: middle;
-    }
-    .servicos {
-      background: var(--preto);
-    }
-    .cards-grid {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 30px;
-    }
-    .card {
-      background: var(--cinza);
-      border: 1px solid rgba(201, 162, 39, 0.2);
-      border-radius: 14px;
-      overflow: hidden;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 12px 35px rgba(201, 162, 39, 0.15);
-    }
-    .card-imagem {
-      width: 100%;
-      height: 400px;
-      overflow: hidden;
-    }
-    .card-imagem img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-    .card:hover .card-imagem img {
-      transform: scale(1.08);
-    }
-    .card-conteudo {
-      padding: 25px;
-      text-align: center;
-    }
-    .card-conteudo h3 {
-      font-size: 1.4rem;
-      color: var(--champagne);
-      margin-bottom: 10px;
-    }
-    .card-conteudo p {
-      color: #c8c8c8;
-      font-size: 0.95rem;
-      margin-bottom: 18px;
-    }
-    .card-preco {
-      display: block;
-      font-size: 1.5rem;
-      color: var(--dourado);
-      font-weight: 700;
-      margin-bottom: 20px;
-    }
-    /* Instagram / Social */
-    .social {
-      background: var(--cinza);
-      text-align: center;
-    }
-    .social img {
-      width: 100%;
-      max-width: 450px;
-      height: auto;
-      margin: 0 auto 30px;
-      border-radius: 12px;
-      border: 1px solid rgba(201, 162, 39, 0.3);
-    }
-    .social a {
-      color: var(--dourado);
-      font-weight: 700;
-      font-size: 1.1rem;
-      transition: color 0.3s ease;
-    }
-    .social a:hover {
-      color: var(--champagne);
-    }
-    .redes-sociais {
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      flex-wrap: wrap;
-      margin-top: 30px;
-    }
-    .rede-link {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      text-decoration: none;
-      transition: transform 0.3s ease;
-    }
-    .rede-link:hover {
-      transform: translateY(-5px);
-    }
-    .rede-icone {
-      font-size: 2.5rem;
-    }
-    .rede-nome {
-      font-family: 'Cinzel', serif;
-      font-size: 1.1rem;
-      color: var(--dourado);
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-    .rede-usuario {
-      font-family: 'Lato', sans-serif;
-      font-size: 0.95rem;
-      color: var(--champagne);
-    }
-    /* Footer */
-    .footer {
-      background: #080808;
-      text-align: center;
-      padding: 35px 20px;
-      border-top: 1px solid rgba(201, 162, 39, 0.2);
-    }
-    .footer p {
-      color: #888;
-      font-size: 0.9rem;
-    }
-    .footer .instagram {
-      color: var(--dourado);
-      display: inline-block;
-      margin-bottom: 10px;
-      font-weight: 700;
-    }
-    /* Responsivo */
-    @media (max-width: 1024px) {
-      .hero h1 {
-        font-size: 2.6rem;
-      }
-      .cards-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-    @media (max-width: 768px) {
-      .header {
-        padding: 10px 15px ;
-      }
-      .hero-inner {
-        flex-direction: column;
-        gap: 30px;
-      }
-      .hero-logo img {
-        height: 160px;
-      }
-      .hero-frase {
-        text-align: center;
-      }
-      /* Ajustes das Frases no Celular */
-      .hero {
-        padding: 100px 20px 40px;
-      }
-      .hero-frase .linha1 {
-        font-size: 1.6rem !important;
-        margin-bottom: 5px;
-      }
-      .hero-frase .linha2 {
-        font-size: 1.2rem !important;
-        margin-bottom: 10px;
-      }
-      .hero-frase .linha3 {
-        font-size: 0.9rem !important;
-        line-height: 1.5;
-        margin-top: 10px;
-        padding: 0 10px;
-      }
-      /* Ajustes da lista de serviços no rodapé (Social) */
-      .servicos-texto {
-        font-size: 0.9rem !important;
-        line-height: 1.6;
-        padding: 0 10px;
-      }
-      .bolinha {
-        font-size: 1rem !important;
-        margin: 0 4px;
-      }
-      .logo img {
-        height: 45px;
-        width: auto;
-        object-fit: contain;
-        max-width: 150px;
-      }
-      .nav-desktop {
-        display: none;
-      }
-      .hamburger {
-        display: flex;
-      }
-      .hero-botoes {
-        display: flex;
-        gap: 20px;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-      .btn-outline {
-        margin-left: 0;
-      }
-      section {
-        padding: 70px 20px;
-      }
-      .section-title {
-        font-size: 1.8rem;
-      }
-      .sobre-container {
-        grid-template-columns: 1fr;
-        gap: 35px;
-      }
-      .sobre-imagem img {
-        max-height: 350px;
-      }
-      .cards-grid {
-        grid-template-columns: 1fr;
-        max-width: 500px;
-      }
-      .card-imagem {
-        height: 400px;
-      }
-    }
-    @media (max-width: 480px) {
-      .logo img {
-        height: 40px;
-        max-width: 140px;
-      }
-      .section-title {
-        font-size: 1.6rem;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Beauty | Penteados e Beleza</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --preto: #0d0d0d;
+            --dourado: #c9a227;
+            --champagne: #f3e5ab;
+            --cinza: #1a1a1a;
+            --branco: #ffffff;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: var(--preto);
+            color: var(--champagne);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2.2rem;
+            color: var(--dourado);
+            text-align: center;
+            margin-bottom: 2.5rem;
+            letter-spacing: 1px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(13, 13, 13, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(201, 162, 39, 0.2);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            width: 280px;
+            height: auto;
+            transition: var(--transition);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--champagne);
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--dourado);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--dourado);
+            transition: var(--transition);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--dourado);
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 1.5rem 4rem;
+            background: linear-gradient(135deg, var(--preto) 0%, var(--cinza) 50%, var(--preto) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(201, 162, 39, 0.08) 0%, transparent 70%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+        }
+
+        .hero-logo {
+            width: 280px;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            color: var(--champagne);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            color: var(--dourado);
+            margin-bottom: 2rem;
+            letter-spacing: 2px;
+        }
+
+        .hero-phrases {
+            margin-bottom: 2.5rem;
+            list-style: none;
+            display: inline-block;
+            text-align: left;
+        }
+
+        .hero-phrases li {
+            color: var(--champagne);
+            font-size: 1.15rem;
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+            font-weight: 300;
+        }
+
+        .hero-phrases li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--dourado);
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            border: 1px solid transparent;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #c9a227 0%, #e8c868 50%, #c9a227 100%);
+            color: var(--preto);
+            box-shadow: 0 4px 15px rgba(201, 162, 39, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(201, 162, 39, 0.4);
+        }
+
+        .btn-outline {
+            background: rgba(243, 229, 171, 0.08);
+            color: var(--champagne);
+            border: 1px solid var(--dourado);
+        }
+
+        .btn-outline:hover {
+            background: rgba(243, 229, 171, 0.15);
+            color: var(--dourado);
+            transform: translateY(-3px);
+        }
+
+        /* Services */
+        .services {
+            padding: 5rem 1.5rem;
+            background: var(--preto);
+        }
+
+        .services-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--cinza);
+            border: 1px solid rgba(201, 162, 39, 0.2);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(201, 162, 39, 0.15);
+            border-color: var(--dourado);
+        }
+
+        .service-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+            border-bottom: 1px solid rgba(201, 162, 39, 0.2);
+        }
+
+        .service-content {
+            padding: 1.5rem;
+        }
+
+        .service-content h3 {
+            color: var(--dourado);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .service-content p {
+            color: var(--champagne);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+
+        .service-price {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            color: var(--champagne);
+            font-weight: 600;
+        }
+
+        /* Social Section */
+        .social-section {
+            padding: 5rem 1.5rem;
+            background: linear-gradient(180deg, var(--cinza) 0%, var(--preto) 100%);
+        }
+
+        .social-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .social-phrases {
+            list-style: none;
+            display: inline-block;
+            text-align: left;
+            margin-bottom: 2.5rem;
+        }
+
+        .social-phrases li {
+            color: var(--champagne);
+            font-size: 1.15rem;
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+            font-weight: 300;
+        }
+
+        .social-phrases li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--dourado);
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--champagne);
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            padding: 0.8rem 1.5rem;
+            border: 1px solid var(--dourado);
+            border-radius: 50px;
+            background: rgba(243, 229, 171, 0.05);
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background: rgba(243, 229, 171, 0.12);
+            color: var(--dourado);
+            transform: translateY(-3px);
+        }
+
+        .social-link svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        /* About */
+        .about {
+            padding: 5rem 1.5rem;
+            background: var(--preto);
+        }
+
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about p {
+            font-size: 1.1rem;
+            color: var(--champagne);
+            font-weight: 300;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--cinza);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            border-top: 1px solid rgba(201, 162, 39, 0.2);
+        }
+
+        footer p {
+            color: var(--champagne);
+            font-size: 0.9rem;
+            font-weight: 300;
+        }
+
+        footer .brand {
+            color: var(--dourado);
+            font-family: 'Cinzel', serif;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .logo {
+                width: 150px;
+            }
+
+            .hero-logo {
+                width: 150px;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            nav {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(13, 13, 13, 0.98);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s ease;
+            }
+
+            nav.active {
+                max-height: 300px;
+            }
+
+            nav ul {
+                flex-direction: column;
+                padding: 1.5rem;
+                gap: 1.2rem;
+            }
+
+            .hero {
+                padding: 7rem 1rem 3rem;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .hero-phrases,
+            .social-phrases {
+                display: block;
+                text-align: center;
+                padding: 0;
+            }
+
+            .hero-phrases li,
+            .social-phrases li {
+                padding-left: 0;
+                display: block;
+                margin-bottom: 0.5rem;
+            }
+
+            .hero-phrases li::before,
+            .social-phrases li::before {
+                display: none;
+            }
+
+            .hero-phrases li:nth-child(1),
+            .hero-phrases li:nth-child(2),
+            .social-phrases li:nth-child(1),
+            .social-phrases li:nth-child(2) {
+                padding-left: 1.2rem;
+                display: inline-block;
+            }
+
+            .hero-phrases li:nth-child(1)::before,
+            .hero-phrases li:nth-child(2)::before,
+            .social-phrases li:nth-child(1)::before,
+            .social-phrases li:nth-child(2)::before {
+                display: inline-block;
+                left: 0;
+            }
+
+            .hero-phrases li:nth-child(1),
+            .social-phrases li:nth-child(1) {
+                margin-left: 0;
+            }
+
+            .hero-phrases li:nth-child(2),
+            .social-phrases li:nth-child(2) {
+                margin-left: 1rem;
+            }
+
+            .hero-phrases li:nth-child(3),
+            .social-phrases li:nth-child(3) {
+                margin-left: 2rem;
+            }
+
+            .hero-phrases li:nth-child(4),
+            .social-phrases li:nth-child(4) {
+                margin-left: 3rem;
+            }
+
+            .hero-phrases li:nth-child(5),
+            .social-phrases li:nth-child(5) {
+                margin-left: 4rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 280px;
+            }
+
+            .section-title {
+                font-size: 1.7rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
 <body>
-  <header class="header">
-    <a href="#" class="logo">
-      <img src="imagens/logodourada.png" alt="Sales Beauty Logo" />
-    </a>
-    <nav class="nav-desktop">
-      <a href="#inicio">Início</a>
-      <a href="#sobre">Sobre</a>
-      <a href="#servicos">Serviços</a>
-      <a href="#social">Social</a>
-      <a href="#contato">Contato</a>
-    </nav>
-    <div class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-  </header>
-  <div class="overlay" id="overlay"></div>
-  <nav class="mobile-menu" id="mobile-menu">
-    <a href="#inicio" class="mobile-link">Início</a>
-    <a href="#sobre" class="mobile-link">Sobre</a>
-    <a href="#servicos" class="mobile-link">Serviços</a>
-    <a href="#social" class="mobile-link">Social</a>
-    <a href="#contato" class="mobile-link">Contato</a>
-  </nav>
-  <section class="hero" id="inicio">
-    <div class="hero-inner">
-      <div class="hero-logo">
-        <img src="imagens/logodourada.png" alt="Sales Beauty Logo Dourado" />
-      </div>
-      <div class="hero-frase">
-        <span class="linha1">Originalidade Amazônica</span>
-        <span class="linha2">Sofisticação Paulistana</span>
-        <span class="linha3">Noivas <span class="bolinha">•</span> Madrinhas <span class="bolinha">
-        </span> Debutantes <span class="bolinha">•</span> Formaturas <span class="bolinha">
-        </span> Ensaios Fotográficos <span class="bolinha">
-        </span> Influenciadoras <span class="bolinha">
-        </span> Criadoras de Conteúdo</span>
-      </div>
-    </div>
-    <div class="hero-content">
-      <div class="hero-botoes">
-        <a href="https://wa.me/5511940548312?text=Olá!%20Quero%20agendar%20minha%20maquiagem%20na%20Sales%20Beauty" target="_blank" class="btn btn-primary">Quero Agendar</a>
-        <a href="#servicos" class="btn btn-outline">Ver Serviços</a>
-      </div>
-    </div>
-  </section>
-  <section class="sobre" id="sobre">
-    <div class="sobre-container">
-      <div class="sobre-imagem">
-        <img src="imagens/imagem2.jpeg" alt="Sales Beauty - Maquiagem de luxo" />
-      </div>
-      <div class="sobre-texto">
-        <h2>Sobre Sales Beauty</h2>
-        <p>
-          A <strong>Sales Beauty</strong> nasceu da fusão entre a <strong>sofisticação paulista</strong> e a <strong>essência amazônica</strong>, criando um conceito único de beleza que celebra a diversidade brasileira.
-        </p>
-        <p>
-          Cada maquiagem é criada para destacar o que você tem de mais bonito: sua essência. Com técnica, sensibilidade e excelência, proporcionamos um resultado sofisticado, duradouro e encantador para que você se sinta confiante e inesquecível em cada ocasião.
-        </p>
-        <a href="https://wa.me/5511940548312?text=Olá!%20Quero%20conhecer%20mais%20sobre%20a%20Sales%20Beauty" target="_blank" class="btn btn-primary">Atendimento a domicilio</a>
-      </div>
-    </div>
-  </section>
-  <section class="servicos" id="servicos">
-    <h2 class="section-title">Nossos Serviços</h2>
-    <div class="cards-grid">
-      <div class="card">
-        <div class="card-imagem">
-          <img src="imagens/makesocial.png" alt="Maquiagem Social" />
+    <header>
+        <div class="header-container">
+            <svg class="logo" viewBox="0 0 280 80" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#c9a227"/>
+                        <stop offset="100%" style="stop-color:#f3e5ab"/>
+                    </linearGradient>
+                </defs>
+                <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="url(#logoGradient)" font-family="'Playfair Display', serif" font-size="32" font-weight="600">SALES BEAUTY</text>
+            </svg>
+            <button class="menu-toggle" aria-label="Abrir menu">&#9776;</button>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#servicos">Serviços</a></li>
+                    <li><a href="#social">Social</a></li>
+                    <li><a href="#sobre">Sobre</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
+            </nav>
         </div>
-        <div class="card-conteudo">
-          <h3>Maquiagem Social</h3>
-          <p>Perfeita para eventos e compromissos especiais, oferece acabamento leve a médio, realçando sua beleza natural com um tom de sombra suave e lábios com batom em tom claro para um visual elegante.</p>
-          <span class="card-preco">R$ 137</span>
-          <a href="https://wa.me/5511940548312?text=Olá!%20Quero%20agendar%20a%20Make%20Social%20de%20R$%20137" target="_blank" class="btn btn-primary">Quero Agendar</a>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <svg class="hero-logo" viewBox="0 0 280 80" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="heroLogoGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#c9a227"/>
+                        <stop offset="100%" style="stop-color:#f3e5ab"/>
+                    </linearGradient>
+                </defs>
+                <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="url(#heroLogoGradient)" font-family="'Playfair Display', serif" font-size="32" font-weight="600">SALES BEAUTY</text>
+            </svg>
+            <h1>Beleza que Transforma</h1>
+            <p class="hero-subtitle">PENTEADOS E PRODUÇÕES EXCLUSIVAS</p>
+            <ul class="hero-phrases">
+                <li>Realce sua essência com sofisticação</li>
+                <li>Cada penteado conta uma história única</li>
+                <li>Atendimento personalizado e acolhedor</li>
+                <li>Detalhes que fazem toda a diferença</li>
+                <li>Experiência de beleza incomparável</li>
+            </ul>
+            <div class="hero-buttons">
+                <a href="#servicos" class="btn btn-primary">Conhecer Serviços</a>
+                <a href="#contato" class="btn btn-outline">Agendar Horário</a>
+            </div>
         </div>
-      </div>
-      <div class="card">
-        <div class="card-imagem">
-          <img src="imagens/makepremium.png" alt="Maquiagem  Premium" />
+    </section>
+
+    <section class="services" id="servicos">
+        <h2 class="section-title fade-in">Nossos Serviços</h2>
+        <div class="services-grid">
+            <div class="service-card fade-in">
+                <svg class="service-image" viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+                    <rect width="400" height="180" fill="#1a1a1a"/>
+                    <circle cx="200" cy="80" r="45" fill="none" stroke="#c9a227" stroke-width="2"/>
+                    <path d="M170 80 Q200 50 230 80" fill="none" stroke="#f3e5ab" stroke-width="2"/>
+                    <text x="50%" y="150" text-anchor="middle" fill="#f3e5ab" font-family="'Cinzel', serif" font-size="16">Social</text>
+                </svg>
+                <div class="service-content">
+                    <h3>Social</h3>
+                    <p>Penteado elegante para festas, casamentos e eventos especiais, com acabamento delicado e duradouro.</p>
+                    <p class="service-price">R$ 250,00</p>
+                </div>
+            </div>
+
+            <div class="service-card fade-in">
+                <svg class="service-image" viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+                    <rect width="400" height="180" fill="#1a1a1a"/>
+                    <circle cx="200" cy="80" r="45" fill="none" stroke="#c9a227" stroke-width="2"/>
+                    <path d="M160 80 L200 40 L240 80 L200 120 Z" fill="none" stroke="#c9a227" stroke-width="2"/>
+                    <text x="50%" y="150" text-anchor="middle" fill="#f3e5ab" font-family="'Cinzel', serif" font-size="16">Premium</text>
+                </svg>
+                <div class="service-content">
+                    <h3>Premium</h3>
+                    <p>Produção completa de alto padrão, com técnicas avançadas e produtos selecionados para ocasiões memoráveis.</p>
+                    <p class="service-price">R$ 350,00</p>
+                </div>
+            </div>
+
+            <div class="service-card fade-in">
+                <svg class="service-image" viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+                    <rect width="400" height="180" fill="#1a1a1a"/>
+                    <circle cx="200" cy="80" r="45" fill="none" stroke="#c9a227" stroke-width="2"/>
+                    <path d="M160 80 L200 50 L240 80 L200 110 Z" fill="#c9a227" opacity="0.3"/>
+                    <text x="50%" y="150" text-anchor="middle" fill="#f3e5ab" font-family="'Cinzel', serif" font-size="16">Blindada</text>
+                </svg>
+                <div class="service-content">
+                    <h3>Blindada</h3>
+                    <p>Penteado ultra resistente, ideal para longas celebrações, climas desafiadores e produções que precisam durar.</p>
+                    <p class="service-price">R$ 450,00</p>
+                </div>
+            </div>
+
+            <div class="service-card fade-in">
+                <svg class="service-image" viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+                    <rect width="400" height="180" fill="#1a1a1a"/>
+                    <circle cx="200" cy="80" r="45" fill="none" stroke="#c9a227" stroke-width="2"/>
+                    <path d="M200 35 C220 50 230 80 200 125 C170 80 180 50 200 35" fill="none" stroke="#f3e5ab" stroke-width="2"/>
+                    <text x="50%" y="150" text-anchor="middle" fill="#f3e5ab" font-family="'Cinzel', serif" font-size="16">Penteado</text>
+                </svg>
+                <div class="service-content">
+                    <h3>Penteado</h3>
+                    <p>Modelagem personalizada de acordo com seu estilo, formato de rosto e ocasião, para um visual harmonioso.</p>
+                    <p class="service-price">Consultar</p>
+                </div>
+            </div>
+
+            <div class="service-card fade-in">
+                <svg class="service-image" viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+                    <rect width="400" height="180" fill="#1a1a1a"/>
+                    <circle cx="200" cy="80" r="45" fill="none" stroke="#c9a227" stroke-width="2"/>
+                    <line x1="160" y1="80" x2="240" y2="80" stroke="#f3e5ab" stroke-width="2"/>
+                    <text x="50%" y="150" text-anchor="middle" fill="#f3e5ab" font-family="'Cinzel', serif" font-size="16">Escova com Chapinha</text>
+                </svg>
+                <div class="service-content">
+                    <h3>Escova com Chapinha</h3>
+                    <p>Alisamento impecável com brilho intenso, ideal para quem busca um visual liso, polido e cheio de elegância.</p>
+                    <p class="service-price">Consultar</p>
+                </div>
+            </div>
+
+            <div class="service-card fade-in">
+                <svg class="service-image" viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+                    <rect width="400" height="180" fill="#1a1a1a"/>
+                    <circle cx="200" cy="80" r="45" fill="none" stroke="#c9a227" stroke-width="2"/>
+                    <path d="M170 80 Q185 50 200 80 Q215 110 230 80" fill="none" stroke="#f3e5ab" stroke-width="2"/>
+                    <text x="50%" y="150" text-anchor="middle" fill="#f3e5ab" font-family="'Cinzel', serif" font-size="16">Escova com Babyliss</text>
+                </svg>
+                <div class="service-content">
+                    <h3>Escova com Babyliss</h3>
+                    <p>Ondas e cachos delicados com movimento natural, perfeitos para quem deseja um look romântico e volumoso.</p>
+                    <p class="service-price">Consultar</p>
+                </div>
+            </div>
         </div>
-        <div class="card-conteudo">
-          <h3>Maquiagem Premium</h3>
-          <p>Pele de alta cobertura, cut crease, delineado, cílios e pontos de brilho para um visual sofisticado e marcante.</p>
-          <span class="card-preco">R$ 187</span>
-          <a href="https://wa.me/5511940548312?text=Olá!%20Quero%20agendar%20a%20Make%20Premium%20de%20R$%20187" target="_blank" class="btn btn-primary">Quero Agendar</a>
+    </section>
+
+    <section class="social-section" id="social">
+        <div class="social-content">
+            <h2 class="section-title fade-in">Acompanhe Nosso Trabalho</h2>
+            <ul class="social-phrases">
+                <li>Transformações reais em cada produção</li>
+                <li>Inspirações para o seu grande dia</li>
+                <li>Dicas exclusivas de beleza</li>
+                <li>Por trás das câmeras da Sales Beauty</li>
+                <li>Conteúdo atualizado toda semana</li>
+            </ul>
+            <div class="social-links">
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram Sales Beauty">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                    Instagram
+                </a>
+                <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="TikTok Sales Beauty">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+                    </svg>
+                    TikTok
+                </a>
+            </div>
         </div>
-      </div>
-      <div class="card">
-        <div class="card-imagem">
-          <img src="imagens/makeblindada.png" alt="Maquiagem Blindada" />
+    </section>
+
+    <section class="about" id="sobre">
+        <div class="about-content">
+            <h2 class="section-title fade-in">Sobre a Sales Beauty</h2>
+            <p class="fade-in">A Sales Beauty nasceu da paixão por transformar momentos especiais em memórias inesquecíveis. Com técnicas refinadas e um olhar detalhista, criamos penteados e produções que refletem a personalidade de cada cliente.</p>
+            <p class="fade-in">Nosso espaço foi pensado para oferecer conforto, sofisticação e um atendimento exclusivo, garantindo que você se sinta única em cada visita.</p>
         </div>
-        <div class="card-conteudo">
-          <h3>Maquiagem Blindada</h3>
-          <p>Resistente à água, lágrimas e atritos, durabilidade superior e aparência impecável por até 24 horas.</p>
-          <span class="card-preco">R$ 277</span>
-          <a href="https://wa.me/5511940548312?text=Olá!%20Quero%20agendar%20a%20Noiva%20Blindada%20de%20R$%20277" target="_blank" class="btn btn-primary">Quero Agendar</a>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-imagem">
-          <img src="imagens/penteado.png" alt="Penteado" />
-        </div>
-        <div class="card-conteudo">
-          <h3>Penteado</h3>
-          <p>Penteados exclusivos e personalizados para todos os tipos de eventos, garantindo elegância e fixação impecável.</p>
-          <span class="card-preco">Consultar</span>
-          <a href="https://wa.me/5511940548312?text=Olá!%20Quero%20consultar%20o%20valor%20do%20Penteado" target="_blank" class="btn btn-primary">Quero Agendar</a>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-imagem">
-          <img src="imagens/escovachapinha.png" alt="Escova com chapinha" />
-        </div>
-        <div class="card-conteudo">
-          <h3>Escova com chapinha</h3>
-          <p>Alinhamento perfeito e brilho intenso para um visual liso, clássico e sofisticado.</p>
-          <span class="card-preco">Consultar</span>
-          <a href="https://wa.me/5511940548312?text=Olá!%20Quero%20consultar%20o%20valor%20da%20Escova%20com%20chapinha" target="_blank" class="btn btn-primary">Quero Agendar</a>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-imagem">
-          <img src="imagens/escovababyliss.png" alt="Escova com babyliss" />
-        </div>
-        <div class="card-conteudo">
-          <h3>Escova com babyliss</h3>
-          <p>Ondas naturais e volumosas que proporcionam movimento e um toque glamouroso ao seu visual.</p>
-          <span class="card-preco">Consultar</span>
-          <a href="https://wa.me/5511940548312?text=Olá!%20Quero%20consultar%20o%20valor%20da%20Escova%20com%20babyliss" target="_blank" class="btn btn-primary">Quero Agendar</a>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section class="social" id="social">
-    <h2 class="section-title">Siga nossas redes</h2>
-    <div class="servicos-lista">
-      <p class="servicos-texto">
-        Noivas <span class="bolinha">•</span> Madrinhas <span class="bolinha">•</span> Debutantes <span class="bolinha">•</span> Formaturas <span class="bolinha">•</span> Ensaios Fotográficos <span class="bolinha">•</span> Influenciadoras <span class="bolinha">•</span> Criadoras de Conteúdo
-      </p>
-    </div>
-    <div class="redes-sociais">
-      <a href="https://www.instagram.com/Sales.beautybr" target="_blank" class="rede-link">
-        <span class="rede-icone">📷</span>
-        <span class="rede-nome">Instagram</span>
-        <span class="rede-usuario">@Sales.beautybr</span>
-      </a>
-      <a href="https://www.tiktok.com/@Sales.beautybr" target="_blank" class="rede-link">
-        <span class="rede-icone">🎵</span>
-        <span class="rede-nome">TikTok</span>
-        <span class="rede-usuario">@Sales.beautybr</span>
-      </a>
-    </div>
-  </section>
-  <footer class="footer" id="contato">
-    <a href="https://www.instagram.com/Sales.beautybr" target="_blank" class="instagram">@Sales.beautybr</a>
-    <p>© 2026 Sales Beauty. Todos os direitos reservados.</p>
-  </footer>
-  <script>
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const overlay = document.getElementById('overlay');
-    const mobileLinks = document.querySelectorAll('.mobile-link');
-    function toggleMenu() {
-      const isOpen = mobileMenu.classList.toggle('active');
-      overlay.classList.toggle('active');
-      hamburger.setAttribute('aria-expanded', isOpen);
-      document.body.style.overflow = isOpen ? 'hidden' : '';
-    }
-    function closeMenu() {
-      mobileMenu.classList.remove('active');
-      overlay.classList.remove('active');
-      hamburger.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
-    }
-    hamburger.addEventListener('click', toggleMenu);
-    overlay.addEventListener('click', closeMenu);
-    mobileLinks.forEach(link => link.addEventListener('click', closeMenu));
-  </script>
+    </section>
+
+    <footer id="contato">
+        <p>&copy; 2024 <span class="brand">Sales Beauty</span>. Todos os direitos reservados.</p>
+        <p style="margin-top: 0.5rem; font-size: 0.85rem;">Entre em contato para agendar sua transformação.</p>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const nav = document.querySelector('nav');
+
+        menuToggle.addEventListener('click', () => {
+            nav.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(element => {
+            observer.observe(element);
+        });
+
+        // Smooth scroll for older browsers fallback
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
